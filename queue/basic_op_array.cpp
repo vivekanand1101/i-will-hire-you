@@ -1,4 +1,5 @@
 // Basic operations on Queue
+// Here Queue is implemented using arrays
 
 
 
