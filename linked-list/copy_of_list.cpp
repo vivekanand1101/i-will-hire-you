@@ -13,6 +13,7 @@ struct node {
 struct node* getNode()
 {
     struct node* tmp = (struct node*)malloc(sizeof(struct node));
+    tmp -> next = NULL;
     return tmp;
 }
 

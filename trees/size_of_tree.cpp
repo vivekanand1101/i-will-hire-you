@@ -17,6 +17,8 @@ struct node* newNode(int data)
 {
     struct node* tmp = (struct node*) malloc(sizeof(struct node));
     tmp -> data = data;
+    tmp -> left = NULL;
+    tmp -> right = NULL;
     return tmp;
 }
 
