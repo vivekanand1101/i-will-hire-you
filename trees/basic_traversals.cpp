@@ -1,7 +1,7 @@
 // Make a Binary search tree, print it using inorder, postorder, preorder
 
 #include <iostream>
-#include <cstdlib>
+#include <cstdlib> // needed for malloc
 
 using namespace std;
 
