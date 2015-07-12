@@ -1,6 +1,17 @@
 // Program to build an unique tree using preorder and inorder traversals
 
-#include <iostream>
+/*
+1)Pick an element from Preorder. Increment a Preorder Index Variable
+    (preIndex in below code) to pick next element in next recursive call.
+2) Create a new tree node tNode with the data as picked element.
+3) Find the picked element’s index in Inorder. Let the index be inIndex.
+4) Call buildTree for elements before inIndex and make the built tree
+    as left subtree of tNode.
+5) Call buildTree for elements after inIndex and make the built tree
+    as right subtree of tNode.
+6) return tNode.
+*/
+
 #include <cstdlib>
 
 using namespace std;
@@ -19,8 +30,16 @@ struct node* newNode(int data)
     tmp -> right = NULL;
 }
 
-struct node* build_tree(int* inorder, \
-                                    int* preorder, int* inStr, int* inEnd)
+int search(int* inorder, int inStr, int inEnd, int data)
+{
+    for(int i = inStr; i <= inEnd; i++) {
+        if (inorder[i] == data) {
+            return i;
+        }
+    }
+}
+
+struct node* build_tree(int* inorder, int* preorder, int inStr, int inEnd)
 {
     static int preIndex = 0;
 
@@ -35,7 +54,15 @@ struct node* build_tree(int* inorder, \
         return new_node;
     }
 
-    int inIndex = search(inorder, inStr, inEnd, new_node -> data
+    int inIndex = search(inorder, inStr, inEnd, new_node -> data);
+
+    new_node -> left = build_tree(inorder, preorder, inStr, inIndex - 1);
+    new_node -> right = build_tree(inorder, preorder, inIndex + 1, inEnd);
+
+    return new_node;
+}
+
+// As the name suggests, prints the tree in inorder traversal
 void print_tree_inorder(struct node* tree)
 {
     if (tree == NULL) {
@@ -52,8 +79,8 @@ int main()
     int n;
     cout << "Enter no of nodes: "<< endl;
     cin >> n;
-    int inorder[n];
-    int preorder[n];
+    int inorder[n]; // For storing the inorder traversal data
+    int preorder[n]; // For storing the preorder traversal data
     struct node* tree = NULL;
 
     cout << "Enter the inorder traversal: " << endl;
@@ -66,7 +93,10 @@ int main()
         cin >> preorder[i];
     }
 
-    tree = build_tree(tree, inorder, preorder, 0, 0);
+    // build_tree returns the root of the tree
+    // after the tree has been formed from the given 
+    // two arrays.
+    tree = build_tree(inorder, preorder, 0, n - 1);
 
     cout << "The unique tree in inorder traversal: " << endl;
     print_tree_inorder(tree);
