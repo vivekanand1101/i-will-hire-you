@@ -40,8 +40,9 @@ struct node* insert_tail(struct node* head, int data)
 // Insertion in the list. The new node is added
 // to the head of the list. The last node doesn't
 // point to NULL. After insertion, we point the last node
-// to the head node, thus making a loop
-void insert_create_cycle(struct node** head_ref, int data)
+// to the head node, thus making a loop(done in main)
+// This function inserts at the head
+void insertion(struct node** head_ref, int data)
 {
     struct node* tmp = newNode(data);
     if (*head_ref == NULL) {
@@ -75,14 +76,20 @@ bool detect_loop(struct node* head)
 int main()
 {
     struct node* head = NULL;
-    insert_create_cycle(&head, 1);
-    insert_create_cycle(&head, 2);
-    insert_create_cycle(&head, 3);
-    insert_create_cycle(&head, 4);
+    insertion(&head, 1);
+    insertion(&head, 2);
+    insertion(&head, 3);
+    insertion(&head, 4);
 
     // Creates a loop
     head -> next -> next -> next -> next = head;
-    int loop = detect_loop(head);
-    cout << loop << endl;
+    bool loop = detect_loop(head);
+
+    if (loop) {
+        cout << "Loop detected" << endl;
+    } else {
+        cout << "No loop detected" << endl;
+    }
+
     return 0;
 }
