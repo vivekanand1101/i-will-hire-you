@@ -1,5 +1,5 @@
-// Given an array A[] and a number x
-// check for pair in A[] with sum as x
+// Given an array and a number x check whether
+// a pair in the array with sum equal to x exists
 
 #include <iostream>
 #include <algorithm> // for the sort function
@@ -34,7 +34,7 @@ bool sum_of_pair_of_elements(int* array, int n, int x)
         }
     }
 
-    // We couldn't find any two elements
+    // when we can't find any two elements
     return false;
 }
 
