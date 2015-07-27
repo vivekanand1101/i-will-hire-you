@@ -1,0 +1,44 @@
+// Program to find the intersection point of two
+// linked lists. Input is head pointers to both
+// the lists and output would be the data stored
+// in the node which is the point of intersection
+
+#include <iostream>
+#include <cstdlib>
+
+using namespace std;
+
+struct node {
+    int data;
+    struct node* next;
+};
+
+struct node* newNode(int data)
+{
+    struct node* tmp = (struct node*)malloc(sizeof(struct node));
+    tmp -> next = NULL;
+    tmp -> data = data;
+    return tmp;
+}
+
+/*
+struct node* insert(struct node* head, int data)
+{
+    struct node* new_node = newNode(data);
+
+    if (head == NULL) {
+        return new_node;
+    }
+
+    struct node* tmp = head;
+    for (; tmp -> next != NULL; tmp = tmp -> next);
+
+    tmp -> next = new_node;
+
+    return head;
+}
+*/
+
+int main()
+{
+
