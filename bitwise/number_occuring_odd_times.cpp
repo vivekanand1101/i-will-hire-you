@@ -25,7 +25,7 @@ using namespace std;
 // Also, there should be
 // no other element which occurs odd
 // number of times
-int get_element(int* array, int n)
+int get_element_occurring_odd_times(int* array, int n)
 {
     int e = 0;
     for (int i = 0; i < n; i++) {
@@ -48,7 +48,7 @@ int main()
         cin >> array[i];
     }
 
-    int odd_times = get_element(array, n);
+    int odd_times = get_element_occurring_odd_times(array, n);
     cout << "The element occurring odd number of times is: ";
     cout << odd_times << endl;
 
