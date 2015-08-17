@@ -10,6 +10,9 @@ class Node:
         self.left = None
         self.right = None
 
+    def __repr__(self):
+        return self.data
+
 class Tree:
     """This class represents a tree"""
 
@@ -39,6 +42,9 @@ class Tree:
 
         return node
 
+    def children(self, node):
+        return list([node.left, node.right])
+
     def inorder(self, node):
         """Inorder tree traversal"""
 
@@ -63,6 +69,24 @@ class Tree:
             print node.data,
             self.preorder(node.left)
             self.preorder(node.right)
+
+    def level_order_traversal(self, root):
+        """Prints the level order traversal of the tree"""
+
+        queue = [root]
+        visited = []
+        while queue:
+            node = queue.pop(0)
+            if node not in visited:
+                print node,
+
+            if self.children is not [None, None]:
+                for vertex in self.children(node):
+                    print vertex
+                    if vertex not in visited:
+                        print 'queue ', queue
+                        queue.append(vertex)
+            visited.extend(node)
 
 def main():
 
@@ -90,6 +114,8 @@ def main():
     for i in data:
         root = tree.insert(root, i)
 
+    print 'bfs'
+    tree.level_order_traversal(root)
     print "Inorder: "
     tree.inorder(root)
     print
