@@ -27,7 +27,7 @@ class Graph:
         """Returns all the adjacent nodes 
             of a given node
         """
-        return self.graph_dict[node]
+        return set(self.graph_dict[node])
 
     def add_vertex(self, vertex):
         """Adds a vertex to the graph"""
@@ -90,7 +90,7 @@ class Graph:
 
         #to keep track that we
         #we don't loop forever
-        visited = []
+        visited = set()
 
         while queue:
 
@@ -100,14 +100,27 @@ class Graph:
             #do what you want to do with the node
             print node,
 
-            #mark the node you just visited
-            visited.append(node)
-
             #check for other nodes in the
             #neighbourhood
-            for v in self.neighbours(node):
-                if v not in visited:
-                    queue.append(v)
+            if node not in visited:
+                visited.add(node)
+                
+                #mark the node you just visited
+                queue.extend(self.neighbours(node) - visited)
+
+    def depth_first_traversal(self, root):
+        """Print the graph in depth first manner"""
+
+        stack = []
+        stack.append(root)
+        visited = set()
+
+        while stack:
+            node = stack.pop()
+            print node,
+            if node not in visited:
+                visited.add(node)
+                stack.extend(self.neighbours(node) - visited)
 
 def main():
 
@@ -148,6 +161,10 @@ def main():
 
     print 'The level order traversal'
     graph.level_order_traversal('0')
+    print
+
+    print 'The depth order traversal'
+    graph.depth_first_traversal('0')
     print
 
     """
