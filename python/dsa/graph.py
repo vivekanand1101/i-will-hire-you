@@ -1,5 +1,7 @@
 # The below code is for undirected graph
 
+from collections import deque
+
 class Graph:
     """Represents a graph, uses python dict
         data structure.
@@ -20,6 +22,12 @@ class Graph:
             uses the generate edge method
         """
         return self.generate_edges()
+
+    def neighbours(self, node):
+        """Returns all the adjacent nodes 
+            of a given node
+        """
+        return self.graph_dict[node]
 
     def add_vertex(self, vertex):
         """Adds a vertex to the graph"""
@@ -55,7 +63,7 @@ class Graph:
         """Generate all the edge of the graph,
             It is a helper function for edges()
         """
-        
+
         #every pair of key and value in the
         #list of all the values for the keys
         #will make for the edge. Iterate over
@@ -66,6 +74,40 @@ class Graph:
                 if (value, key) not in edges:
                         edges.append((key, value))
         return edges
+
+    def level_order_traversal(self, root):
+        """Print the graph in breadth first manner"""
+
+        #deque: using list as queue
+        #the idea is we first put
+        #the elements in the queue
+        #and then visit it. So, we
+        #first take the root and enqueue
+        #it and look for its neighbours
+        #and visit them one by one
+        queue = deque([])
+        queue.append(root)
+
+        #to keep track that we
+        #we don't loop forever
+        visited = []
+
+        while queue:
+
+            #dequeue from the queue
+            node = queue.popleft()
+
+            #do what you want to do with the node
+            print node,
+
+            #mark the node you just visited
+            visited.append(node)
+
+            #check for other nodes in the
+            #neighbourhood
+            for v in self.neighbours(node):
+                if v not in visited:
+                    queue.append(v)
 
 def main():
 
@@ -104,6 +146,11 @@ def main():
 
     graph = Graph(g)
 
+    print 'The level order traversal'
+    graph.level_order_traversal('0')
+    print
+
+    """
     print "Vertices of the graph #1:"
     print graph.vertices()
 
@@ -130,7 +177,8 @@ def main():
     print graph.vertices()
 
     print "Edges of the graph #3: "
-    print graph.edges()
+    print graph.efdges()
+    """
 
 if __name__ == '__main__':
     main()

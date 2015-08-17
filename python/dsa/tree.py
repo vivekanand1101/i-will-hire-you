@@ -64,14 +64,12 @@ class Tree:
             self.preorder(node.left)
             self.preorder(node.right)
 
-
 def main():
 
     #initialize the root,
     #will be an object of
     #class 'Node' later
     root = None
-
     #tree object
     tree = Tree()
 
@@ -102,6 +100,10 @@ def main():
 
     print "Postorder: "
     tree.postorder(root)
+    print
+
+    print 'Attributes: '
+    print dir(tree)
     print
 
 if __name__ == '__main__':
