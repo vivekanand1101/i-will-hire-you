@@ -24,14 +24,14 @@ class Graph:
         return self.generate_edges()
 
     def neighbours(self, node):
-        """Returns all the adjacent nodes 
+        """Returns all the adjacent nodes
             of a given node
         """
         return self.graph_dict[node]
 
     def add_vertex(self, vertex):
         """Adds a vertex to the graph"""
-        
+
         #here if the vertex is not present,
         #then it is initialized with an empty list
         #and is added as a key to the graph dict
@@ -106,7 +106,7 @@ class Graph:
             for vertex in self.neighbours(node):
                 if vertex not in visited:
                     queue.extend(vertex)
-            
+
             #you visited the node earlier!
             visited.extend(node)
 
