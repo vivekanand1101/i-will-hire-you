@@ -29,3 +29,7 @@
 
 # Java
 *.class
+
+# Python
+*.pyc
+*.py~
