@@ -1,5 +1,3 @@
-# The below code is for undirected graph
-
 from collections import deque
 
 class Graph:
@@ -39,7 +37,7 @@ class Graph:
         if vertex not in self.graph_dict:
             self.graph_dict[vertex] = []
 
-    def add_edge(self, edge):
+    def add_edge_undirected(self, edge):
         """Add an edge to the graph"""
 
         edge = set(edge)
@@ -58,6 +56,20 @@ class Graph:
             self.graph_dict[vertex2].append(vertex1)
         else:
             self.graph_dict[vertex2] = [vertex1]
+
+    def add_edge_directed(self, edge):
+        """Add an edge to the directed graph
+            expects edge to be list with 2 element
+            and its first element to be source and
+            second to be the destination"""
+
+        edge = set(edge)
+        (vertex1, vertex2) = tuple(edge)
+
+        if vertex1 in self.graph_dict:
+            self.graph_dict[vertex1].append(vertex2)
+        else:
+            self.graph_dict[vertex1] = [vertex2]
 
     def generate_edges(self):
         """Generate all the edge of the graph,
@@ -194,7 +206,7 @@ def main():
 
     print
     print "Add an edge {\"11\", \"12\"} with new vertices"
-    graph.add_edge({"11", "12"})
+    graph.add_edge_undirected({"11", "12"})
     print
 
     print "Vertices of the graph #3: "
