@@ -122,12 +122,18 @@ class Graph:
             #you visited the node earlier!
             visited.extend(node)
 
+    #its same but, use stack instead
+    #"Push your children(neighbours here :P) and take them
+    #out at the end"
+    #Note the reversed part also, this is because
+    #otherwise, the last node in the visited list
+    #will be at the top of the stack while in recursive
+    #implementation or otherwise, every time in dfs,
+    #the node which appears the first (in neighbours)
+    #should be explored first.
     def depth_first_traversal(self, root):
         """Print the graph in depth first manner"""
 
-        #its same but, use stack instead
-        #"Push your children(neighbours here :P) and take them
-        #out at the end"
         stack = []
         stack.append(root)
         visited = []
@@ -136,10 +142,59 @@ class Graph:
             node = stack.pop()
             if node not in visited:
                 print node,
-            for vertex in self.neighbours(node):
+            for vertex in reversed(self.neighbours(node)):
                 if vertex not in visited:
                     stack.extend(vertex)
             visited.extend(node)
+
+    #Ideally, visited must be a set in all these traversals
+    #Here, visited has to be passed as an argument because
+    #otherwise, it would be initialized every time it is
+    #called.
+    def depth_first_traversal_recursive(self, node, visited):
+        """Print the graph in depth first manner
+            implemented using recursion
+        """
+
+        if node not in visited:
+            print node,
+            visited.add(node)
+        for vertex in self.neighbours(node):
+            if vertex not in visited:
+                self.depth_first_traversal_recursive(vertex, visited)
+
+        #visited.add(node) -- Runs infinite loop if put here
+
+    def iterative_deepening_traversal_(self, node, visited, depth_limit):
+        """Prints the graph in iterative manner"""
+
+        if depth_limit == 0:
+            return visited
+        
+        if node not in visited:
+            visited.append(node)
+        for vertex in self.neighbours(node):
+            if vertex not in visited:
+                visited = self.iterative_deepening_traversal_(vertex,
+                                        visited, depth_limit - 1)
+
+        return visited
+
+    def iterative_deepening_traversal(self, node, visited, depth_limit):
+        """Driving function for iterative deepening traversal"""
+
+        #condition to check if all the vertices
+        #have been visited
+        #in case of search, the condition would be different
+        while set(visited) != set(self.vertices()):
+            visited = self.iterative_deepening_traversal_(node, [],
+                                            depth_limit + 1)
+            #update the depth locally
+            depth_limit += 1
+
+        #print the path
+        for i in visited:
+            print i,
 
 def main():
 
@@ -177,14 +232,21 @@ def main():
         g[str(i)] = l
 
     graph = Graph(g)
-
+    print 'g: ', g
     print 'The level order traversal'
     graph.level_order_traversal('0')
     print
 
     print 'The depth order traversal'
-    graph.depth_first_traversal('0')
+    graph.depth_first_traversal('2')
     print
+
+    print 'The depth first traversal recursively'
+    graph.depth_first_traversal_recursive('2', set())
+    print
+
+    print 'The iterative deepening traversal recursively'
+    graph.iterative_deepening_traversal('2', [], 1)
 
     """
     print "Vertices of the graph #1:"
