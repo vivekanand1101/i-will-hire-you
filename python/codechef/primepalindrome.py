@@ -1,10 +1,13 @@
+import math
+
 def main():
     n = int(raw_input())
 
     #because 2 shouldn't be caught in
     #next if condition.
     if n == 2:
-        return 2
+        print '2'
+        return
     #to ensure to check only odd
     #numbers
     elif n % 2 == 0:
@@ -27,7 +30,7 @@ def is_prime(n):
     elif n == 2:
         return True
 
-    for i in range(2, n//2):
+    for i in range(2, int(math.sqrt(n))):
         if n % i == 0:
             return False
 
