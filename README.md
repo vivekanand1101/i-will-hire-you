@@ -1,2 +1,2 @@
 # i-will-hire-you
-Contains all the codes written in order to get placed.
+I will never skip the basics of a language
